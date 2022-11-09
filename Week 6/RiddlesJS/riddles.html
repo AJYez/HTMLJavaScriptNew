@@ -5,18 +5,41 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Riddles with JavaScript</title>
+    <style>
+        @font-face {
+            font-family: comicsans;
+            src: url(fonts/ComicNeueSansID.ttf);
+        }
+        body{
+            font-size: 20px;
+            -webkit-text-stroke-width: 1px;
+            -webkit-text-stroke-color: purple;
+            font-family: comicsans;
+        }
+    </style>
 </head>
 <body>
     <ul>
         <li>
             <p>What is a black and white and read all over?</p>
             <br>
-            <p onclick="showAnswer('answer','A newspaper')" id="answer">Answer</p>
+            <button onclick="showAnswer('answer','A newspaper')">Click for Answer</button>
+            <span id="answer">Answer</span>
+            <hr>
         </li>
         <li>
             <p>What gets bigger, the more that's taken away?</p>
             <br>
-            <p onclick="showAnswer('answer2','A whole')" id="answer2">Answer</p>
+            <button onclick="showAnswer('answer2','A whole')">Click for Answer</button>
+            <span id="answer2">Answer</span>
+            <hr>
+        </li>
+        <li>
+            <p></p>
+            <br>
+            <button onclick="showAnswer('answer3','')">Click for Answer</button>
+            <span id="answer3">Answer</span>
+            <hr>
         </li>
     </ul>
     <script src="riddles.js"></script>
