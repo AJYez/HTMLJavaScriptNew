@@ -1,0 +1,13 @@
+html,body{
+    display: flex;
+    justify-content: center;
+    background-image: url(images/background.webp);
+}
+#canvas{
+    border: 1px solid black;
+}
+#leftimage{
+    display: flex;
+    justify-content: center;
+    width: 260px;
+}

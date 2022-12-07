@@ -1,0 +1,14 @@
+html,body{
+    display: flex;
+    justify-content: center;
+    background-color: darkgray;
+    text-align: center;
+}
+#canvas{
+    background-color: white;
+    border: 5px solid darkred;
+    height: 100vh;
+}
+h1{
+    color: darkred;
+}
