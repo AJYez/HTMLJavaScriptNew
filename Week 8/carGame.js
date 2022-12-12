@@ -3,15 +3,21 @@ var ctx = canvas.getContext("2d");
 
 var timer = requestAnimationFrame(main);
 
+var jwfont = new FontFace(jwfont,url(fonts/Compacta.ttf));
+jwfont.load().then(function(font){
+  document.fonts.add(font);
+  console.log("Font loaded");
+});
+
 var start = 50;
-var finish = 750;
+var finish = 876;
 var carPos = 2;
 var speed = 3;
-var carWidth = 70;
+var carWidth = 115;
 
 var startFuel = randomNumber(canvas.width,600);
 var fuel = startFuel;
-var fuelBarWidth = 300;
+var fuelBarWidth = 400;
 var gameOver = true;
 
 var seconds = 3;
@@ -22,7 +28,27 @@ var frames = fps;
 var carSprite = new Image();
 carSprite.src = "images/car.png";
 
+var viggoCarSprite = new Image();
+viggoCarSprite.src = "images/viggoCar.png";
+
+var helipad = new Image();
+helipad.src = "images/helipad.png";
+
+var water = new Image();
+water.src = "images/water.png";
+
+var road = new Image();
+road.src = "images/road.png";
+
 carSprite.onload = function(){
+    main();
+}
+
+viggoCarSprite.onload = function(){
+    main();
+}
+
+helipad.onload = function(){
     main();
 }
 
@@ -44,7 +70,7 @@ function main(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
     if(gameOver){
         ctx.fillStyle = "black";
-        ctx.font = "30px Arial";
+        ctx.font = "30px jwfont";
         ctx.textAlign = "center";
         ctx.fillText("Press Space to Start", canvas.width/2, canvas.height/2);
     }else{
@@ -59,8 +85,12 @@ function main(){
             }
         }
 
+        drawWater();
+        drawRoad();
         drawStartFinish();
+        drawHelipad();
         drawCar();
+        drawViggo();
     
         drawFuelBar();
         if(carPos + carWidth > finish || fuel<=0){
@@ -72,21 +102,33 @@ function main(){
 }
 
 function drawStartFinish(){
-    ctx.fillStyle = "black";
+    ctx.fillStyle = "purple";
     //start line
-    ctx.fillRect(start,50,10,500);
+    ctx.fillRect(start,50,10,668);
     //finish line
-    ctx.fillRect(finish,50,10,500);
+    ctx.fillRect(finish,50,10,668);
 }
 
 function drawCar(){
     //draw a car
-    ctx.drawImage(carSprite,carPos,canvas.height/2,carWidth,20);
+    ctx.drawImage(carSprite,carPos,canvas.height/2,carWidth,40);
+}
+function drawViggo(){
+    ctx.drawImage(viggoCarSprite,carPos+145,canvas.height/2+35,120,40)
+}
+function drawHelipad(){
+    ctx.drawImage(helipad,900,canvas.height/2,100,40)
+}
+function drawWater(){
+    ctx.drawImage(water,0,0,1024,300)
+}
+function drawRoad(){
+    ctx.drawImage(road,0,290,1024,300)
 }
 
 function drawFuelBar(){
     var currentBarWidth = fuelBarWidth * (fuel/startFuel);
-    ctx.fillStyle = "black";
+    ctx.fillStyle = "orange";
     ctx.fillRect(start,30,fuelBarWidth,10);
     ctx.font = "25px Arial";
     ctx.fillText("Fuel",start,25);
@@ -99,12 +141,12 @@ function drawFuelBar(){
 
 function drawResults(){
     if(carPos + carWidth> finish){
-        ctx.fillStyle = "black";
+        ctx.fillStyle = "purple";
         ctx.font = "25px Arial";
         ctx.textAlign = "center";
         ctx.fillText("You made it to the finish . . . You Win!",canvas.width/2, canvas.height/2)
     }else{
-        ctx.fillStyle = "black";
+        ctx.fillStyle = "purple";
         ctx.font = "25px Arial";
         ctx.textAlign = "center";
         ctx.fillText("You ran out of fuel . . . You Lose",canvas.width/2, canvas.height/2)
