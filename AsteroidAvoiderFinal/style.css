@@ -1,0 +1,27 @@
+html,body{
+    display: flex;
+    justify-content: center;
+    background-color: black;
+}
+header{
+    display: flex;
+    justify-content: center;
+}
+h1{
+    color: black;
+    font: 30px Arial;
+    text-align: center;
+    background-color: darkgray;
+    width: 500px;
+}
+#container{
+    background-color: black;
+}
+canvas{
+    border: 2px solid blue;
+}
+footer{
+    display: flex;
+    justify-content: center;
+    color: white;
+}
