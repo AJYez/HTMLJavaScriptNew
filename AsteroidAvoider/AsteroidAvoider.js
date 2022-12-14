@@ -171,6 +171,7 @@ function PlayerShip(){
                 this.flameLength = 30;
                 ctx.fillStyle = "lightblue";
             }
+            
             //draw flame
             ctx.beginPath();
             ctx.moveTo(0,this.flameLength);

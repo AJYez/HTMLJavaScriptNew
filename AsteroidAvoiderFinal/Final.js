@@ -13,9 +13,11 @@ var asteroids = [];
 
 //player ship
 var ship = new PlayerShip();
-ship.src = "images/playership.png"
 
-ship.onload = function(){
+var shipSprite = new Image();
+shipSprite.src = "images/playership.png";
+
+shipSprite.onload = function(){
     main();
 }
 
@@ -132,7 +134,7 @@ function Asteroid(){
     this.radius = randomRange(15,2);
     this.x = randomRange(canvas.width-this.radius , this.radius) + canvas.width;
     this.y = randomRange(canvas.height-this.radius , this.radius);
-    this.vx = randomRange(-6,-3);
+    this.vx = randomRange(6,3);
     this.color = "white";
 
     //methods(functions) to draw asteroid
@@ -168,26 +170,36 @@ function PlayerShip(){
         //draw thruster
         if(this.up || this.down || this.forward){
             ctx.save();
-            if(this.flameLength == 30){
-                this.flameLength = 20;
+            if(this.flameLength == -30){
+                this.flameLength = -20;
                 ctx.fillStyle = "white";
             }else{
-                this.flameLength = 30;
+                this.flameLength = -30;
                 ctx.fillStyle = "lightblue";
             }
             //draw flame
             ctx.beginPath();
-            ctx.moveTo(0,this.flameLength);
-            ctx.lineTo(5,5);
-            ctx.lineTo(-5,5);
-            ctx.lineTo(0,this.flameLength);
+            ctx.moveTo(this.flameLength,20);
+            ctx.lineTo(15,15);
+            ctx.lineTo(25,25);
+            ctx.lineTo(this.flameLength,20);
             ctx.closePath();
             ctx.fill();
             ctx.restore();
-
-            //draw ship
-            drawShip();
         }
+
+        ctx.fillStyle = "red";
+        ctx.beginPath();
+        ctx.moveTo(0,10);
+        ctx.lineTo(10,20);
+        ctx.lineTo(-10,20);
+        ctx.lineTo(0,20);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+
+        ctx.drawImage(shipSprite,this.x,this.y,40,40);
+
     }
 
     this.moveShip = function(){
@@ -240,10 +252,12 @@ gameState[0] = function(){
     ctx.textAlign = "center";
     ctx.fillText("Press Space to Start", canvas.width/2, canvas.height/2 - 30);
     ctx.restore();
+    
 }
 
 //play game
 gameState[1] = function(){
+    console.log(gameOver);
     //draw score
     ctx.save();
     ctx.font = "15px Arial"
@@ -285,18 +299,19 @@ gameState[1] = function(){
             return;
         }
 
-        if(asteroids[i].x > canvas.width + asteroids[i].radius){
+        if(asteroids[i].x < asteroids[i].radius){
             asteroids[i].y = randomRange(canvas.height + asteroids[i].radius, asteroids[i].radius);
             asteroids[i].x = randomRange(canvas.width + asteroids[i].radius, asteroids[i].radius) + canvas.width;
         }
 
-        asteroids[i].x += asteroids[i].vx;
+        asteroids[i].x -= asteroids[i].vx;
         asteroids[i].drawAsteroid();
     }
-
+   
     //draw the ship
+    ship.drawShip();
     ship.moveShip();
-    drawShip();
+    
 
     //adds asteroids over time
     while(asteroids.length < numAsteroids){
@@ -336,9 +351,7 @@ gameState[2] = function(){
 
 //utility
 
-function drawShip(){
-    ctx.drawImage(ship,80,80,80,80)
-}
+
 
 function gameStart(){
     //for loop
