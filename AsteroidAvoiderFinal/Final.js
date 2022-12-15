@@ -7,14 +7,20 @@ var highScore = 0;
 var currentState = 0;
 var gameState = [];
 
-//asteroid variables
-var numAsteroids = 20;
+//asteroids
+var numAsteroids = 30;
 var asteroids = [];
 
-//player ship variables
+//player ship
 var ship = new PlayerShip();
 
-//create keyboard event handlers
+var shipSprite = new Image();
+shipSprite.src = "images/playership.png";
+
+shipSprite.onload = function(){
+    main();
+}
+
 document.addEventListener("keydown", pressKeyDown);
 document.addEventListener("keyup", pressKeyUp);
 
@@ -28,11 +34,11 @@ function pressKeyDown(e){
         }
         if(e.keyCode == 65){
         //code for up A/left
-        ship.left = true;
+        ship.backward = true;
         }
         if(e.keyCode == 68){
         //code for up D/right
-        ship.right = true;
+        ship.forward = true;
         }
         if(e.keyCode == 83){
         //code for up S/down
@@ -45,15 +51,15 @@ function pressKeyDown(e){
         ship.up = true;
         }
         if(e.keyCode == 37){
-        //code for up A/left
-        ship.left = true;
+        //code for up left
+        ship.backward = true;
         }
         if(e.keyCode == 39){
-        //code for up D/right
-        ship.right = true;
+        //code for up right
+        ship.forward = true;
         }
         if(e.keyCode == 40){
-        //code for up S/down
+        //code for up down
         ship.down = true;
         }     
     }
@@ -64,7 +70,7 @@ function pressKeyDown(e){
             if(currentState == 2){
                 //game over inputs
                 currentState = 0;
-                numAsteroids = 20;
+                numAsteroids = 30;
                 asteroids = [];
                 score = 0;
                 //start game here
@@ -91,11 +97,11 @@ function pressKeyUp(e){
         }
         if(e.keyCode == 65){
         //code for up A/left
-        ship.left = false;
+        ship.backward = false;
         }
         if(e.keyCode == 68){
         //code for up D/right
-        ship.right = false;
+        ship.forward = false;
         }
         if(e.keyCode == 83){
         //code for up S/down
@@ -109,11 +115,11 @@ function pressKeyUp(e){
         }
         if(e.keyCode == 37){
         //code for up A/left
-        ship.left = false;
+        ship.backward = false;
         }
         if(e.keyCode == 39){
         //code for up D/right
-        ship.right = false;
+        ship.forward = false;
         }
         if(e.keyCode == 40){
         //code for up S/down
@@ -126,9 +132,9 @@ function pressKeyUp(e){
 function Asteroid(){
     //properties to draw the asteroid
     this.radius = randomRange(15,2);
-    this.x = randomRange(canvas.width-this.radius , this.radius);
-    this.y = randomRange(canvas.height-this.radius , this.radius) - canvas.height;
-    this.vy = randomRange(6,3);
+    this.x = randomRange(canvas.width-this.radius , this.radius) + canvas.width;
+    this.y = randomRange(canvas.height-this.radius , this.radius);
+    this.vx = randomRange(6,3);
     this.color = "white";
 
     //methods(functions) to draw asteroid
@@ -162,44 +168,44 @@ function PlayerShip(){
         ctx.translate(this.x,this.y);
 
         //draw thruster
-        if(this.up || this.left || this.right){
+        if(this.up || this.down || this.forward){
             ctx.save();
-            if(this.flameLength == 30){
-                this.flameLength = 20;
+            if(this.flameLength == -30){
+                this.flameLength = -20;
                 ctx.fillStyle = "white";
             }else{
-                this.flameLength = 30;
+                this.flameLength = -30;
                 ctx.fillStyle = "lightblue";
             }
-            
             //draw flame
             ctx.beginPath();
-            ctx.moveTo(0,this.flameLength);
-            ctx.lineTo(5,5);
-            ctx.lineTo(-5,5);
-            ctx.lineTo(0,this.flameLength);
+            ctx.moveTo(this.flameLength,20);
+            ctx.lineTo(15,15);
+            ctx.lineTo(25,25);
+            ctx.lineTo(this.flameLength,20);
             ctx.closePath();
             ctx.fill();
             ctx.restore();
         }
 
-        //draw the ship
         ctx.fillStyle = "red";
         ctx.beginPath();
-        ctx.moveTo(0,-10);
-        ctx.lineTo(10,10);
-        ctx.lineTo(-10,10);
-        ctx.lineTo(0,-10);
+        ctx.moveTo(0,10);
+        ctx.lineTo(10,20);
+        ctx.lineTo(-10,20);
+        ctx.lineTo(0,20);
         ctx.closePath();
         ctx.fill();
         ctx.restore();
+
+        ctx.drawImage(shipSprite,this.x,this.y,40,40);
+
     }
 
     this.moveShip = function(){
         this.x += this.vx;
         this.y += this.vy;
 
-        //adding boundaries for the screen
         //bottom boundary
         if(this.y > canvas.height - this.height/2){
             this.y = canvas.height - this.height/2;
@@ -231,31 +237,28 @@ function main(){
 
     gameState[currentState]();
     if(!gameOver){
-    //refresh the screen
+    //refresh
     timer = requestAnimationFrame(main);
     }
 }
 
-//game state machine
+//game states
 
-//main menu state
+//main menu
 gameState[0] = function(){
-    //code for main menu
     ctx.save();
     ctx.font = "30px Arial";
     ctx.fillStyle = "white";
     ctx.textAlign = "center";
-    ctx.fillText("Asteroid Avoider", canvas.width/2, canvas.height/2 - 30);
-    ctx.font = "15px Arial";
-    ctx.fillText("Press Space to Start", canvas.width/2, canvas.height/2 + 20);
+    ctx.fillText("Press Space to Start", canvas.width/2, canvas.height/2 - 30);
     ctx.restore();
+    
 }
 
-//play game state
+//play game
 gameState[1] = function(){
-    //code for asteroid game
-
-    //draw score to screen
+    console.log(gameOver);
+    //draw score
     ctx.save();
     ctx.font = "15px Arial"
     ctx.fillStyle = "white"
@@ -266,20 +269,20 @@ gameState[1] = function(){
     if(ship.up){
         ship.vy = -5;
     }else{
-        ship.vy = 3;
+        ship.vy = 0;
     }
     if(ship.down){
         ship.vy = 5;
     }
 
     //horizontal
-    if(ship.left){
+    if(ship.backward){
         ship.vx = -5;
     }else{
-        ship.vx = 0;
+        ship.vx = -3;
     }
 
-    if(ship.right){
+    if(ship.forward){
         ship.vx = 5;
     }
 
@@ -288,27 +291,27 @@ gameState[1] = function(){
         var dY = ship.y - asteroids[i].y;
         var distance = Math.sqrt((dX*dX) + (dY*dY));
 
-        //collision detection happens here
+        //collision detection
         if(detectCollision(distance, (ship.height/2 + asteroids[i].radius))){
-            //console.log("Hit Asteroid");
             gameOver = true;
             currentState = 2;
             main();
             return;
         }
 
-        if(asteroids[i].y > canvas.height + asteroids[i].radius){
-            asteroids[i].y = randomRange(canvas.height - asteroids[i].radius, asteroids[i].radius) - canvas.height;
-            asteroids[i].x = randomRange(canvas.width - asteroids[i].radius, asteroids[i].radius);
+        if(asteroids[i].x < asteroids[i].radius){
+            asteroids[i].y = randomRange(canvas.height + asteroids[i].radius, asteroids[i].radius);
+            asteroids[i].x = randomRange(canvas.width + asteroids[i].radius, asteroids[i].radius) + canvas.width;
         }
 
-        asteroids[i].y += asteroids[i].vy;
+        asteroids[i].x -= asteroids[i].vx;
         asteroids[i].drawAsteroid();
     }
-
+   
     //draw the ship
-    ship.moveShip();
     ship.drawShip();
+    ship.moveShip();
+    
 
     //adds asteroids over time
     while(asteroids.length < numAsteroids){
@@ -316,7 +319,7 @@ gameState[1] = function(){
     }
 }
 
-//game over state
+//game over
 gameState[2] = function(){
     if(score > highScore){
         highScore = score;
@@ -333,7 +336,7 @@ gameState[2] = function(){
         ctx.restore();
 
     }else{
-        //code for game over menu
+        //game over menu
         ctx.save();
         ctx.font = "30px Arial"
         ctx.fillStyle = "white"
@@ -346,10 +349,12 @@ gameState[2] = function(){
     } 
 }
 
-//utility function
+//utility
+
+
 
 function gameStart(){
-    //for loop to instantiate asteroids for game
+    //for loop
     for(var i = 0; i<numAsteroids; i++){
     asteroids[i] = new Asteroid();
     }
