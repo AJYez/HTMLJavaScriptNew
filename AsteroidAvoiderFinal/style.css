@@ -1,7 +1,7 @@
 html,body{
     display: flex;
     justify-content: center;
-    background-color: black;
+    background-image: url(images/asteroidfield.webp);
 }
 header{
     display: flex;
