@@ -15,6 +15,7 @@ ground.img.src=`imagesNew/groundtexture.png`
 
 //A platform
 var plat = new GameObject({width:256, height:64,y:canvas.height-200, color:"green"})
+plat.img.src='imagesNew/platformtexture.png'
 
 //A level object when it is moved other objects move with it.
 var level = new GameObject({x:0,y:0});
@@ -71,7 +72,7 @@ rbg.img.src=`imagesNew/middlegroundimage1 (1).png`
 
 //middleground
 var bg = new GameObject({x:level.x,y:level.y, width:canvas.width*4, height:canvas.height})
-bg.img.src=`images/bgfull.png`
+//bg.img.src=`images/bgfull.png`
 
 /*------------------vvBULLET STUFFvv----------------------*/
 
@@ -256,7 +257,9 @@ gameStates[`level1`] = function()
 	var groundPattern = context.createPattern(ground.img, `repeat`);
 	//Applies pattern to ground and platform
 	ground.color = groundPattern
-	plat.color = groundPattern
+
+	var platPattern = context.createPattern(plat.img, `repeat`);
+	plat.color = platPattern
 
 	//Sets up pattern for the sky
 	var skyPattern = context.createPattern(sky.img, `repeat`);
