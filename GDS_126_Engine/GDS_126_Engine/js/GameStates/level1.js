@@ -84,11 +84,11 @@ var currentBullet = 0;
 
 for(let i=0; i<100; i++)
 {
-	bullets[i] = new GameObject({width:64, height:64})
-	//bullets[i].img.src="images/mrt.jpg"
+	bullets[i] = new GameObject({width:100, height:118})
+	bullets[i].img.src='imagesNew/projectile.png'
 	bullets[i].makeSprite(playerData)
 	bullets[i].y=-10000
-	bullets[i].changeState(`walk`)
+	//bullets[i].changeState(`walk`)
 }
 
 //console.log(bullets)
