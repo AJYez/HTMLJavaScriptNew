@@ -29,11 +29,11 @@ var playerData ={
 			cycle:true,
 			frames:
 			[
-				{width:128, height:128, startX:568, startY:0},
-				{width:128, height:128, startX:698, startY:0},
-				{width:128, height:128, startX:828, startY:0},
-				{width:128, height:128, startX:958, startY:0},
-				{width:128, height:128, startX:1088, startY:0}
+				{width:128, height:128, startX:696, startY:0},
+				{width:128, height:128, startX:826, startY:0},
+				{width:128, height:128, startX:956, startY:0},
+				{width:128, height:128, startX:1086, startY:0},
+				{width:128, height:128, startX:1216, startY:0}
 				
 			]
 		},
@@ -44,10 +44,10 @@ var playerData ={
 			cycle:true,
 			frames:
 			[
-				{width:128, height:128, startX:1348, startY:0},
-				{width:128, height:128, startX:1479, startY:0},
-				{width:128, height:128, startX:1608, startY:0},
-				{width:128, height:128, startX:1479, startY:0}
+				{width:128, height:128, startX:1476, startY:0},
+				{width:128, height:128, startX:1607, startY:0},
+				{width:128, height:128, startX:1736, startY:0},
+				{width:128, height:128, startX:1607, startY:0}
 			]
 		},
 		//The jump animation 
@@ -57,7 +57,7 @@ var playerData ={
 			cycle:false,
 			frames:
 			[
-				{width:128, height:128, startX:1218, startY:0}
+				{width:128, height:128, startX:1346, startY:0}
 			]
 		},
 		//The crouch animation 
@@ -67,7 +67,7 @@ var playerData ={
 			cycle:true,
 			frames:
 			[
-				{width:128, height:128, startX:435, startY:0},
+				{width:128, height:128, startX:563, startY:0},
 			]
 		},
 		//The attack animation 
@@ -78,12 +78,22 @@ var playerData ={
 			width:217,
 			frames:
 			[
-				{width:217, height:128, startX:0, startY:0},
-				{width:217, height:128, startX:0, startY:0},
-				{width:217, height:128, startX:217, startY:0},
-				{width:217, height:128, startX:217, startY:0},
-				{width:217, height:128, startX:217, startY:0}
+				{width:217, height:128, startX:128, startY:0},
+				{width:217, height:128, startX:128, startY:0},
+				{width:217, height:128, startX:345, startY:0},
+				{width:217, height:128, startX:345, startY:0},
+				{width:217, height:128, startX:345, startY:0}
 				
+			]
+		},
+		//Projectile
+		bullet:
+		{
+			fps:2,
+			cycle:false,
+			frames:
+			[
+				{width:128, height:128, startX:0, startY:0}
 			]
 		}
 	}
