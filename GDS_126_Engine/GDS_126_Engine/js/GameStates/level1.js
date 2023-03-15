@@ -79,7 +79,7 @@ var bg = new GameObject({x:level.x,y:level.y, width:canvas.width*4, height:canva
 var bullets=[]
 var canShoot=true;
 var shotTimer = 0;
-var shotDelay = 500;
+var shotDelay = 5000;
 var currentBullet = 0;
 
 for(let i=0; i<100; i++)
@@ -161,7 +161,7 @@ gameStates[`level1`] = function()
 
 			bullets[currentBullet].vx = 8*wiz.dir;
 			bullets[currentBullet].world = level;
-			bullets[currentBullet].x = wiz.x-level.x  + (wiz.dir * 96) ;
+			bullets[currentBullet].x = wiz.x-level.x  + (wiz.dir * 100) ;
 			bullets[currentBullet].y = wiz.y;
 			bullets[currentBullet].dir = wiz.dir;
 			
@@ -298,7 +298,7 @@ gameStates[`level1`] = function()
 	//Moves, checks collision and renders projectiles.
 	for(let i=0; i<bullets.length; i++)
 	{
-		if(bullets[i].overlap(stage)) bullets[i].vy+=1;
+		//if(bullets[i].overlap(stage)) bullets[i].vy+=1;
 		bullets[i].move()
 		bullets[i].play(function(){return}).drawSprite()
 		//bullets[i].angle+=10
