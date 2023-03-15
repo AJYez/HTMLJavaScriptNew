@@ -141,7 +141,7 @@ gameStates[`level1`] = function()
 		wiz.changeState(`jump`)
 		//sounds.play(`splode`,1)
 	}
-	shotTimer--;
+	/*shotTimer--;
 	if(shotTimer <=0)
 	{
 		canShoot=true
@@ -149,35 +149,25 @@ gameStates[`level1`] = function()
 	else
 	{
 		canShoot=false;
-	}
+	}*/
 
 	if(keys[` `] )
 	{
 		if(canShoot)
 		{
 			wiz.changeState(`attack`)
-			shotTimer = shotDelay
-			//console.log(`Boom`)
-
-			bullets[currentBullet].vx = 8*wiz.dir;
-			bullets[currentBullet].world = level;
-			bullets[currentBullet].x = wiz.x-level.x  + (wiz.dir * 100) ;
-			bullets[currentBullet].y = wiz.y;
-			bullets[currentBullet].dir = wiz.dir;
 			
-			//sounds.play(`splode`,1)
+			//console.log(`Boom`)
+			canShoot = false;
 
-			currentBullet++;
-			if(currentBullet>=bullets.length)
-			{
-				currentBullet=0
-			}
+			
 
 		}
 	}
 	else
 	{
 		shotTimer=0
+		canShoot = true;
 	}
 	
 	//-----Player movement-----///
@@ -293,7 +283,29 @@ gameStates[`level1`] = function()
 	sprites.play().render(`drawSprite`);
 
 	//renders player
-	wiz.play(function(){return}).drawSprite()
+	wiz.play(function(){
+
+		
+		if(wiz.currentState == "attack" && !canShoot)
+		{
+			shotTimer = shotDelay
+
+			bullets[currentBullet].vx = 8*wiz.dir;
+			bullets[currentBullet].world = level;
+			bullets[currentBullet].x = wiz.x-level.x  + (wiz.dir * 100) ;
+			bullets[currentBullet].y = wiz.y;
+			bullets[currentBullet].dir = wiz.dir;
+			
+			//sounds.play(`splode`,1)
+			currentBullet++;
+			if(currentBullet>=bullets.length)
+			{
+				currentBullet=0
+			}
+			wiz.changeState('idle')
+		}
+		return
+	}).drawSprite()
 	
 	//Moves, checks collision and renders projectiles.
 	for(let i=0; i<bullets.length; i++)
