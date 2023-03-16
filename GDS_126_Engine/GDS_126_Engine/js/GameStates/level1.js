@@ -72,7 +72,7 @@ rbg.img.src=`imagesNew/middlegroundimage1 (1).png`
 
 //middleground
 var bg = new GameObject({x:level.x,y:level.y, width:canvas.width*4, height:canvas.height})
-//bg.img.src=`images/bgfull.png`
+bg.img.src=`imagesNew/frontground.png`
 
 /*------------------vvBULLET STUFFvv----------------------*/
 
