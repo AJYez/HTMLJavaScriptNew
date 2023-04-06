@@ -8,7 +8,7 @@ var player;
 
 	canvas = document.getElementById("canvas");
 	context = canvas.getContext("2d");	
-	player = new Player();
+	player = new Ball();
 	
 	//------Declare the Player's speed on the x and y axis------
 	player.vx = 2;
@@ -30,6 +30,12 @@ function animate()
 	if(player.x > canvas.width - player.width/2)
 	{
 		player.vx = -player.vx;	
+	}
+
+	//--------------Bounce of Right----------------------
+	if(player.x == 0 + player.width/2)
+	{
+		player.vx = -player.vx;
 	}
 	//---------------------------------------------------
 	
