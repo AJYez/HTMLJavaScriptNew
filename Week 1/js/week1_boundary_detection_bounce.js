@@ -29,27 +29,31 @@ function animate()
 	//--------------Bounce off Right----------------------
 	if(player.x > canvas.width - player.width/2)
 	{
-		player.vx = -player.vx;	
+		player.vx = -player.vx;
+		player.color = "red";
 	}
 
 	//--------------Bounce off Left----------------------
 	if(player.x == 0 + player.width/2)
 	{
 		player.vx = -player.vx;
+		player.color = "blue";
 	}
 	//---------------------------------------------------
 
 	//--------------Bounce off Top----------------------
 	if(player.y == 0 + player.height/2)
 	{
-		player.vy = -player.vy;	
+		player.vy = -player.vy;
+		player.color = "green";
 	}
 	//---------------------------------------------------
 
 	//--------------Bounce off Bottom----------------------
 	if(player.y > canvas.height - player.height/2)
 	{
-		player.vy = -player.vy;	
+		player.vy = -player.vy;
+		player.color = "yellow";
 	}
 	
 	player.draw();
