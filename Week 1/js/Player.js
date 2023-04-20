@@ -28,7 +28,6 @@ function Ball()
 			context.closePath();
 			context.fill();
 		context.restore();
-		
 	}	
 	
 	//This changes the player's position

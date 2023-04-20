@@ -11,7 +11,6 @@ function GameObject(x,y,w,h,color)
 		this.y = canvas.height/2;
 	else 
 		this.y = y;
-	
 	if(w == undefined)
 		this.width = 100;
 	else 
@@ -38,7 +37,7 @@ function GameObject(x,y,w,h,color)
 	this.vy = 0;
 	
 
-	
+
 	//This draws the player to the screen
 	this.drawRect = function()
 	{

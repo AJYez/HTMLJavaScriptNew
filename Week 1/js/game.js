@@ -7,9 +7,7 @@ context = canvas.getContext("2d");
 
 var player1 = new GameObject();
 
-timer = setInterval(animate, interval);
-
-new GameObject(x,y,w,h,color)
+new GameObject()
 {
 	this.x = canvas.width/2;
 	this.y = canvas.height/2;
@@ -20,14 +18,14 @@ new GameObject(x,y,w,h,color)
 	this.vx = 0;
 	this.vy = 0;
 	
-	this.color = "green";
+	this.color = "#ff0000";
 
-    this.drawRect = function()
+	this.drawRect = function()
 	{
 		context.save();
-			context.fillStyle = this.color;
-			context.translate(this.x, this.y);
-			context.fillRect((canvas.width/2), (canvas.height/2), this.width, this.height);
+		context.fillStyle = this.color;
+		context.translate(this.x, this.y);
+		context.fillRect((this.width/2), (this.height/2), this.width, this.height);
 		context.restore();	
 	}
 }
