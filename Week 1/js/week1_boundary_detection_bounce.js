@@ -9,6 +9,9 @@ var player;
 	canvas = document.getElementById("canvas");
 	context = canvas.getContext("2d");	
 	player = new Ball();
+	player1 = new GameObject();
+
+	player1 = player;
 	
 	//------Declare the Player's speed on the x and y axis------
 	player.vx = 2;

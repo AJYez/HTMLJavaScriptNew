@@ -17,7 +17,9 @@ var gravity = 1;
 	canvas = document.getElementById("canvas");
 	context = canvas.getContext("2d");	
 	
-	player = new GameObject();
+	player = new ball();
+	player1 = new GameObject();
+	player1 = player;
 	player.force = 1;
 	
 	timer = setInterval(animate, interval);
