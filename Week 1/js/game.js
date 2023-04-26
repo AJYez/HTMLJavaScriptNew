@@ -1,88 +1,62 @@
 // JavaScript Document
-var player1 = new GameObject();
 
-new GameObject()
+var canvas;
+var context;
+var timer;
+var interval = 1000/60;
+
+	canvas = document.getElementById("canvas");
+	context = canvas.getContext("2d");	
+	var ball = new GameObject();
+	
+	
+	//------Declare the Player's speed on the x and y axis------
+	ball.vx = 2;
+	ball.vy = 2;
+	//----------------------------------------------------
+	player1 = new GameObject();
+	player1.color = "purple";
+	timer = setInterval(animate, interval);
+
+
+function animate()
 {
+	context.clearRect(0,0,canvas.width, canvas.height);	
 	
-	//Default Values
-	if(x == undefined)
-		this.x = canvas.width/2;
-	else 
-		this.x = x;
-	if(y == undefined)
-		this.y = canvas.height/2;
-	else 
-		this.y = y;
-	if(w == undefined)
-		this.width = 100;
-	else 
-		this.width = w;
-	if(h == undefined)
-		this.height = 100;
-	else 
-		this.height = h;
+	//----Movement Using the Player's move() function----
+	ball.move();
+	//---------------------------------------------------
 	
-		//player's color
-	if(color == undefined)
-		this.color = "purple";
-	else 
-		this.color = color;
-	
-	//player's velocity or speed on each axis
-	
-	this.force = 1;
-	
-	this.ax = 1;
-	this.ay = 1;
-	
-	this.vx = 0;
-	this.vy = 0;
+	//--------------Bounce off Right----------------------
+	if(ball.x > canvas.width - ball.width/2)
+	{
+		ball.vx = -ball.vx;
+		ball.color = "red";
+	}
 
-	//This draws the player to the screen
-	this.drawRect = function()
+	//--------------Bounce off Left----------------------
+	if(ball.x == 0 + ball.width/2)
 	{
-		context.save();
-		context.fillStyle = this.color;
-		context.translate(this.x, this.y);
-		context.fillRect((this.width/2), (this.height/2), this.width, this.height);
-		context.restore();	
+		ball.vx = -ball.vx;
+		ball.color = "blue";
+	}
+	//---------------------------------------------------
+
+	//--------------Bounce off Top----------------------
+	if(ball.y == 0 + ball.height/2)
+	{
+		ball.vy = -ball.vy;
+		ball.color = "green";
+	}
+	//---------------------------------------------------
+
+	//--------------Bounce off Bottom----------------------
+	if(ball.y > canvas.height - ball.height/2)
+	{
+		ball.vy = -ball.vy;
+		ball.color = "yellow";
 	}
 	
-	//This changes the player's position
-	this.move = function()
-	{
-		this.x += this.vx;
-		this.y += this.vy;
-	}
-	
-	this.left = function() 
-	{
-		return this.x - this.width/2;
-	}
-	this.right = function() 
-	{
-		return this.x + this.width/2;
-	}
-	
-	this.top = function() 
-	{
-		return this.y - this.height/2;
-	}
-	this.bottom = function() 
-	{
-		return this.y + this.height/2;
-	}
-	
-	this.hitTestObject = function(obj)
-	{
-		if(this.left() < obj.right() && 
-		   this.right() > obj.left() &&
-		   this.top() < obj.bottom() &&
-		   this.bottom() > obj.top())
-		{
-			return true
-		}
-		return false;
-	}
-	
+	ball.drawCircle();
+	player1.drawRect();
 }
