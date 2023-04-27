@@ -57,6 +57,6 @@ function animate()
 		ball.color = "yellow";
 	}
 	
-	ball.drawCircle();
+	//ball.drawCircle();
 	player1.drawRect();
 }
