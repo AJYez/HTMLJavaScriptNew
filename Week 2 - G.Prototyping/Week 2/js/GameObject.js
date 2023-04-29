@@ -11,8 +11,9 @@ function GameObject(x,y,w,h,color)
 		this.y = canvas.height/2;
 	else 
 		this.y = y;
+	
 	if(w == undefined)
-		this.width = 1000;
+		this.width = 100;
 	else 
 		this.width = w;
 	if(h == undefined)
@@ -27,26 +28,21 @@ function GameObject(x,y,w,h,color)
 		this.color = color;
 	
 	//player's velocity or speed on each axis
-	
-	this.force = 1;
-	
-	this.ax = 1;
-	this.ay = 1;
-	
-	this.vx = 10;
-	this.vy = 10;
+	this.vx = 0;
+	this.vy = 0;
 	
 
-
+	
 	//This draws the player to the screen
 	this.drawRect = function()
 	{
 		context.save();
-		context.fillStyle = this.color;
-		context.translate(this.x, this.y);
-		context.fillRect((-this.width/2), (-this.height/2), 25, 100);
-		context.restore();	
-	}
+			context.fillStyle = this.color;
+			context.translate(this.x, this.y);
+			context.fillRect((-this.width/2), (-this.height/2), this.width, this.height);
+		context.restore();
+		
+	}	
 	
 	this.drawCircle = function()
 	{
@@ -54,6 +50,7 @@ function GameObject(x,y,w,h,color)
 			context.fillStyle = this.color;
 			context.beginPath();
 			context.translate(this.x, this.y);
+			context.arc(0, 0, this.width/2, 0, 360 *Math.PI/180, true);
 			context.arc(0, 0, this.width/2, 0, 360 *Math.PI/180, true);
 			context.closePath();
 			context.fill();

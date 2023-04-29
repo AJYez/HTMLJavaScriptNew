@@ -18,10 +18,20 @@ var interval = 1000/60;
 	player1.color = "purple";
 	timer = setInterval(animate, interval);
 
-
 function animate()
 {
-	context.clearRect(0,0,canvas.width, canvas.height);	
+	context.clearRect(0,0,canvas.width, canvas.height);
+
+	if(w)
+	{
+		console.log("Moving Up");
+		player1.y += -2;
+	}
+	if(s)
+	{
+		console.log("Moving Down");
+		player1.y += 2;
+	}
 	
 	//----Movement Using the Player's move() function----
 	ball.move();
