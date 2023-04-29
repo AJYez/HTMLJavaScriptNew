@@ -25,42 +25,48 @@ function animate()
 	if(w)
 	{
 		console.log("Moving Up");
-		player1.y += -2;
+		player1.y += -5;
 	}
 	if(s)
 	{
 		console.log("Moving Down");
-		player1.y += 2;
+		player1.y += 5;
 	}
 	
-	//----Movement Using the Player's move() function----
-	ball.move();
-	//---------------------------------------------------
+//<----------------------------------------------------------------------->
+
+	if(player1.y <= 0 + 50)
+	{
+		player1.y = 50;
+	}
 	
-	//--------------Bounce off Right----------------------
+	if(player1.y >= 800 - 50)
+	{
+		player1.y = 750;
+	}
+
+//<----------------------------------------------------------------------->
+
+	ball.move();
+
 	if(ball.x > canvas.width - ball.width/2)
 	{
 		ball.vx = -ball.vx;
 		ball.color = "red";
 	}
 
-	//--------------Bounce off Left----------------------
 	if(ball.x == 0 + ball.width/2)
 	{
 		ball.vx = -ball.vx;
 		ball.color = "blue";
 	}
-	//---------------------------------------------------
 
-	//--------------Bounce off Top----------------------
 	if(ball.y == 0 + ball.height/2)
 	{
 		ball.vy = -ball.vy;
 		ball.color = "green";
 	}
-	//---------------------------------------------------
-
-	//--------------Bounce off Bottom----------------------
+	
 	if(ball.y > canvas.height - ball.height/2)
 	{
 		ball.vy = -ball.vy;

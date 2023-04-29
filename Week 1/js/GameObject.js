@@ -33,8 +33,8 @@ function GameObject(x,y,w,h,color)
 	this.ax = 1;
 	this.ay = 1;
 	
-	this.vx = 10;
-	this.vy = 10;
+	this.vx = 0;
+	this.vy = 0;
 	
 
 
