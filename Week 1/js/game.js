@@ -49,30 +49,34 @@ function animate()
 
 	ball.move();
 
-	if(ball.x > canvas.width - ball.width/2)
+	//right wall
+	if(ball.x > canvas.width - ball.height/2 + 10)
 	{
 		ball.vx = -ball.vx;
 		ball.color = "red";
 	}
 
-	if(ball.x == 0 + ball.width/2)
+	//left wall
+	if(ball.x == 0 + ball.height/2 - 10)
 	{
 		ball.vx = -ball.vx;
 		ball.color = "blue";
 	}
 
-	if(ball.y == 0 + ball.height/2)
+	//ceiling
+	if(ball.y == 0 + ball.height/2 - 10)
 	{
 		ball.vy = -ball.vy;
 		ball.color = "green";
 	}
 	
-	if(ball.y > canvas.height - ball.height/2)
+	//floor
+	if(ball.y > canvas.height - ball.height/2 + 10)
 	{
 		ball.vy = -ball.vy;
 		ball.color = "yellow";
 	}
 	
-	//ball.drawCircle();
+	ball.drawCircle();
 	player1.drawRect();
 }

@@ -54,7 +54,7 @@ function GameObject(x,y,w,h,color)
 			context.fillStyle = this.color;
 			context.beginPath();
 			context.translate(this.x, this.y);
-			context.arc(0, 0, this.width/2, 0, 360 *Math.PI/180, true);
+			context.arc(0, 0, this.width/25, 0, 360 *Math.PI/180, true);
 			context.closePath();
 			context.fill();
 		context.restore();
@@ -70,20 +70,20 @@ function GameObject(x,y,w,h,color)
 	
 	this.left = function() 
 	{
-		return this.x - this.width/2;
+		return this.x - this.width/25;
 	}
 	this.right = function() 
 	{
-		return this.x + this.width/2;
+		return this.x + this.width/25;
 	}
 	
 	this.top = function() 
 	{
-		return this.y - this.height/2;
+		return this.y - this.height/25;
 	}
 	this.bottom = function() 
 	{
-		return this.y + this.height/2;
+		return this.y + this.height/25;
 	}
 	
 	this.hitTestObject = function(obj)
