@@ -11,8 +11,8 @@ var interval = 1000/60;
 	
 	
 	//------Declare the Player's speed on the x and y axis------
-	ball.vx = 2;
-	ball.vy = 2;
+	ball.vx = 4;
+	ball.vy = 4;
 	//----------------------------------------------------
 	player1 = new GameObject();
 	player1.color = "purple";
@@ -59,7 +59,7 @@ function animate()
 	//left wall
 	if(ball.x == 0 + ball.height/2 - 10)
 	{
-		ball.vx = -ball.vx;
+		//ball.vx = -ball.vx;
 		ball.color = "blue";
 	}
 
@@ -75,6 +75,39 @@ function animate()
 	{
 		ball.vy = -ball.vy;
 		ball.color = "yellow";
+	}
+
+	//<----------------------------------------------------------------------->
+
+	obj1 = player1;
+	obj2 = ball;
+
+	obj1.leftSide = function(){return player1.x - player1.width/2};
+	obj1.rightSide = function(){return player1.x + player1.width/2};
+	obj1.topSide = function(){return player1.y - player1.height/2};
+	obj1.bottomSide = function(){return player1.y + player1.height/2};
+
+	obj2.leftSide = function(){return ball.x - ball.width/2};
+	obj2.rightSide = function(){return ball.x + ball.width/2};
+	obj2.topSide = function(){return ball.y - ball.height/2};
+	obj2.bottomSide = function(){return ball.y + ball.height/2};
+
+function hitTestObject(obj1, obj2)
+	{
+ 		if( obj1.leftSide() < obj2.rightSide() &&
+    	obj1.rightSide() > obj2.leftSide() &&
+    	obj1.topSide() < obj2.bottomSide() &&
+    	obj1.bottomSide() > obj2.topSide() )
+    	{
+      		return true;
+    	}
+ 		return false;
+	}
+
+	if(hitTestObject(obj1, obj2))
+	{
+		ball.vx = -ball.vx;
+		ball.vy = -ball.vy;
 	}
 	
 	ball.drawCircle();
