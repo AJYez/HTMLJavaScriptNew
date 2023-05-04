@@ -12,7 +12,7 @@ function GameObject(x,y,w,h,color)
 	else 
 		this.y = y;
 	if(w == undefined)
-		this.width = 1000;
+		this.width = 100;
 	else 
 		this.width = w;
 	if(h == undefined)
@@ -35,8 +35,6 @@ function GameObject(x,y,w,h,color)
 	
 	this.vx = 0;
 	this.vy = 0;
-	
-
 
 	//This draws the player to the screen
 	this.drawRect = function()
@@ -44,7 +42,7 @@ function GameObject(x,y,w,h,color)
 		context.save();
 		context.fillStyle = this.color;
 		context.translate(this.x, this.y);
-		context.fillRect((-this.width/2), (-this.height/2), 25, 100);
+		context.fillRect(-500, -50, this.width/4, this.height);
 		context.restore();	
 	}
 	
@@ -54,7 +52,7 @@ function GameObject(x,y,w,h,color)
 			context.fillStyle = this.color;
 			context.beginPath();
 			context.translate(this.x, this.y);
-			context.arc(0, 0, this.width/25, 0, 360 *Math.PI/180, true);
+			context.arc(0, 0, this.width/2, 0, 360 *Math.PI/180, true);
 			context.closePath();
 			context.fill();
 		context.restore();
@@ -70,20 +68,20 @@ function GameObject(x,y,w,h,color)
 	
 	this.left = function() 
 	{
-		return this.x - this.width/25;
+		return this.x - this.width/4;
 	}
 	this.right = function() 
 	{
-		return this.x + this.width/25;
+		return this.x + this.width/4;
 	}
 	
 	this.top = function() 
 	{
-		return this.y - this.height/25;
+		return this.y - this.height/2;
 	}
 	this.bottom = function() 
 	{
-		return this.y + this.height/25;
+		return this.y + this.height/2;
 	}
 	
 	this.hitTestObject = function(obj)

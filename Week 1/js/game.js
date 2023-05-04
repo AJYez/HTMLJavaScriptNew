@@ -4,11 +4,11 @@ var canvas;
 var context;
 var timer;
 var interval = 1000/60;
+var prevX;
 
 	canvas = document.getElementById("canvas");
 	context = canvas.getContext("2d");	
 	var ball = new GameObject();
-	
 	
 	//------Declare the Player's speed on the x and y axis------
 	ball.vx = 4;
@@ -16,6 +16,7 @@ var interval = 1000/60;
 	//----------------------------------------------------
 	player1 = new GameObject();
 	player1.color = "purple";
+
 	timer = setInterval(animate, interval);
 
 function animate()
@@ -79,37 +80,12 @@ function animate()
 
 	//<----------------------------------------------------------------------->
 
-	obj1 = player1;
-	obj2 = ball;
-
-	obj1.leftSide = function(){return player1.x - player1.width/2};
-	obj1.rightSide = function(){return player1.x + player1.width/2};
-	obj1.topSide = function(){return player1.y - player1.height/2};
-	obj1.bottomSide = function(){return player1.y + player1.height/2};
-
-	obj2.leftSide = function(){return ball.x - ball.width/2};
-	obj2.rightSide = function(){return ball.x + ball.width/2};
-	obj2.topSide = function(){return ball.y - ball.height/2};
-	obj2.bottomSide = function(){return ball.y + ball.height/2};
-
-function hitTestObject(obj1, obj2)
-	{
- 		if( obj1.leftSide() < obj2.rightSide() &&
-    	obj1.rightSide() > obj2.leftSide() &&
-    	obj1.topSide() < obj2.bottomSide() &&
-    	obj1.bottomSide() > obj2.topSide() )
-    	{
-      		return true;
-    	}
- 		return false;
-	}
-
-	if(hitTestObject(obj1, obj2))
+	if(ball.hitTestObject(player1))
 	{
 		ball.vx = -ball.vx;
-		ball.vy = -ball.vy;
 	}
-	
+
+	//Update the Screen
 	ball.drawCircle();
 	player1.drawRect();
 }
