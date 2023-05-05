@@ -11,8 +11,8 @@ var prevX;
 	var ball = new GameObject();
 	
 	//------Declare the Player's speed on the x and y axis------
-	ball.vx = 4;
-	ball.vy = 4;
+	ball.vx = -5;
+	ball.vy = 0;
 	//----------------------------------------------------
 	player1 = new GameObject();
 	player1.color = "purple";
@@ -85,7 +85,22 @@ function animate()
 	if(ball.hitTestObject(player1))
 	{
 		ball.color = "blue";
-		ball.vx = -ball.vx;
+		if(ball.y < player1.y - 16)
+		{
+		  ball.vx = 5;
+		  ball.vy = -5;
+		}
+
+		if(ball.y > player1.y + 16)
+		{
+		  ball.vx = 5;
+		  ball.vy = 5;
+		}
+
+		if(ball.y > player1.y - 16 && ball.y < player1.y +16)
+		{
+		  ball.vx = 5;
+		}
 	}
 
 	//Update the Screen
