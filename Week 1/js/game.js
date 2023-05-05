@@ -16,6 +16,8 @@ var prevX;
 	//----------------------------------------------------
 	player1 = new GameObject();
 	player1.color = "purple";
+	player1.x = 25;
+	player1.width = 25;
 
 	timer = setInterval(animate, interval);
 
@@ -34,7 +36,7 @@ function animate()
 		player1.y += 5;
 	}
 	
-//<----------------------------------------------------------------------->
+//<------------------Paddle Top & Bottom Boundaries------------------>
 
 	if(player1.y <= 0 + 50)
 	{
@@ -46,7 +48,7 @@ function animate()
 		player1.y = 750;
 	}
 
-//<----------------------------------------------------------------------->
+//<----------------Ball Boundaries---------------->
 
 	ball.move();
 
@@ -82,6 +84,7 @@ function animate()
 
 	if(ball.hitTestObject(player1))
 	{
+		ball.color = "blue";
 		ball.vx = -ball.vx;
 	}
 

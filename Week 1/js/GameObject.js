@@ -42,7 +42,7 @@ function GameObject(x,y,w,h,color)
 		context.save();
 		context.fillStyle = this.color;
 		context.translate(this.x, this.y);
-		context.fillRect(-500, -50, this.width/4, this.height);
+		context.fillRect((-this.width/2), (-this.height/2), this.width, this.height);
 		context.restore();	
 	}
 	
@@ -68,11 +68,11 @@ function GameObject(x,y,w,h,color)
 	
 	this.left = function() 
 	{
-		return this.x - this.width/4;
+		return this.x - this.width/2;
 	}
 	this.right = function() 
 	{
-		return this.x + this.width/4;
+		return this.x + this.width/2;
 	}
 	
 	this.top = function() 
