@@ -53,28 +53,28 @@ function animate()
 	ball.move();
 
 	//right wall
-	if(ball.x > canvas.width - ball.height/2 + 10)
+	if(ball.x > canvas.width - ball.height/2)
 	{
 		ball.vx = -ball.vx;
 		ball.color = "red";
 	}
 
 	//left wall
-	if(ball.x == 0 + ball.height/2 - 10)
+	if(ball.x <= 0)
 	{
-		//ball.vx = -ball.vx;
-		ball.color = "blue";
+		ball.x = canvas.width/2;
+		ball.y = canvas.height/2;
 	}
 
 	//ceiling
-	if(ball.y == 0 + ball.height/2 - 10)
+	if(ball.y == 0 + ball.height/2 + 10)
 	{
 		ball.vy = -ball.vy;
 		ball.color = "green";
 	}
 	
 	//floor
-	if(ball.y > canvas.height - ball.height/2 + 10)
+	if(ball.y > canvas.height - ball.height/2)
 	{
 		ball.vy = -ball.vy;
 		ball.color = "yellow";
