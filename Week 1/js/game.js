@@ -7,8 +7,10 @@ var interval = 1000/60;
 var prevX;
 
 	canvas = document.getElementById("canvas");
-	context = canvas.getContext("2d");	
+	context = canvas.getContext("2d");
 	var ball = new GameObject();
+	var p1Wins = 0;
+	var p2Wins = 0;
 	
 	//------Declare the Player's speed on the x and y axis------
 	ball.vx = -5;
@@ -83,6 +85,7 @@ function animate()
 	{
 		ball.x = canvas.width/2;
 		ball.y = canvas.height/2;
+		p1Wins = p1Wins + 1;
 	}
 
 	//left wall
@@ -90,6 +93,7 @@ function animate()
 	{
 		ball.x = canvas.width/2;
 		ball.y = canvas.height/2;
+		p2Wins = p2Wins + 1;
 	}
 
 	//ceiling
@@ -154,4 +158,10 @@ function animate()
 	ball.drawCircle();
 	player1.drawRect();
 	player2.drawRect();
+
+	context.font = "25px Arial";
+	context.fillStyle = "black";
+	context.textAlign = "center";
+	context.fillText("Player 1 Score | Player 2 Score", canvas.width/2, 40);
+	context.fillText((p1Wins + "     |     " + p2Wins), canvas.width/2, 70);
 }
