@@ -19,6 +19,11 @@ var prevX;
 	player1.x = 25;
 	player1.width = 25;
 
+	player2 = new GameObject();
+	player2.color = "yellow";
+	player2.x = 1000;
+	player2.width = 25;
+
 	timer = setInterval(animate, interval);
 
 function animate()
@@ -35,6 +40,17 @@ function animate()
 		console.log("Moving Down");
 		player1.y += 5;
 	}
+
+	if(ArrowUp)
+	{
+		console.log("Moving Up");
+		player2.y += -5;
+	}
+	if(ArrowDown)
+	{
+		console.log("Moving Down");
+		player2.y += 5;
+	}
 	
 //<------------------Paddle Top & Bottom Boundaries------------------>
 
@@ -48,19 +64,29 @@ function animate()
 		player1.y = 750;
 	}
 
+	if(player2.y <= 0 + 50)
+	{
+		player2.y = 50;
+	}
+	
+	if(player2.y >= 800 - 50)
+	{
+		player2.y = 750;
+	}
+
 //<----------------Ball Boundaries---------------->
 
 	ball.move();
 
 	//right wall
-	if(ball.x > canvas.width - ball.height/2)
+	if(ball.x >= 1050)
 	{
-		ball.vx = -ball.vx;
-		ball.color = "red";
+		ball.x = canvas.width/2;
+		ball.y = canvas.height/2;
 	}
 
 	//left wall
-	if(ball.x <= 0)
+	if(ball.x <= 0 - 50)
 	{
 		ball.x = canvas.width/2;
 		ball.y = canvas.height/2;
@@ -70,21 +96,20 @@ function animate()
 	if(ball.y == 0 + ball.height/2 + 10)
 	{
 		ball.vy = -ball.vy;
-		ball.color = "green";
 	}
 	
 	//floor
 	if(ball.y > canvas.height - ball.height/2)
 	{
 		ball.vy = -ball.vy;
-		ball.color = "yellow";
 	}
 
 	//<----------------------------------------------------------------------->
 
+	//Player 1
 	if(ball.hitTestObject(player1))
 	{
-		ball.color = "blue";
+		ball.color = "purple";
 		if(ball.y < player1.y - 16)
 		{
 		  ball.vx = 5;
@@ -103,7 +128,30 @@ function animate()
 		}
 	}
 
+		//Player 2
+		if(ball.hitTestObject(player2))
+		{
+			ball.color = "yellow";
+			if(ball.y < player2.y - 16)
+			{
+			  ball.vx = -5;
+			  ball.vy = -5;
+			}
+	
+			if(ball.y > player2.y + 16)
+			{
+			  ball.vx = -5;
+			  ball.vy = 5;
+			}
+	
+			if(ball.y > player2.y - 16 && ball.y < player2.y +16)
+			{
+			  ball.vx = -5;
+			}
+		}
+
 	//Update the Screen
 	ball.drawCircle();
 	player1.drawRect();
+	player2.drawRect();
 }
