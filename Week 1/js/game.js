@@ -155,6 +155,16 @@ function animate()
 		}
 
 	//Update the Screen
+	context.save();
+	context.strokeStyle = "dark gray";
+	context.beginPath();
+	context.moveTo(canvas.width/2, 0);
+	context.lineTo(canvas.width/2, 800);
+	context.closePath();
+	context.lineWidth = "5px";
+	context.stroke();
+	context.restore();
+
 	ball.drawCircle();
 	player1.drawRect();
 	player2.drawRect();
@@ -162,6 +172,6 @@ function animate()
 	context.font = "25px Arial";
 	context.fillStyle = "black";
 	context.textAlign = "center";
-	context.fillText("Player 1 Score | Player 2 Score", canvas.width/2, 40);
-	context.fillText((p1Wins + "     |     " + p2Wins), canvas.width/2, 70);
+	context.fillText("Player 1  |  Player 2", canvas.width/2, 40);
+	context.fillText((p1Wins + "                 " + p2Wins), canvas.width/2, 70);
 }
