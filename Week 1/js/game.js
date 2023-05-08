@@ -8,6 +8,7 @@ var prevX;
 
 	canvas = document.getElementById("canvas");
 	context = canvas.getContext("2d");
+	var img=document.getElementById("ric");
 	var ball = new GameObject();
 	var p1Wins = 0;
 	var p2Wins = 0;
@@ -165,9 +166,11 @@ function animate()
 	context.stroke();
 	context.restore();
 
-	ball.drawCircle();
+	//ball.drawCircle();
 	player1.drawRect();
 	player2.drawRect();
+
+	context.drawImage(ric, ball.x - 60, ball.y - 53, 120, 103);
 
 	context.font = "25px Arial";
 	context.fillStyle = "black";
