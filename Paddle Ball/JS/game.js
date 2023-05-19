@@ -9,6 +9,9 @@ var prevX;
 	canvas = document.getElementById("canvas");
 	context = canvas.getContext("2d");
 	var ball = new GameObject();
+	var score = 0;
+	var gravity = 1;
+	var friction = 0.9;
 	
 	//<----------------Ball---------------->
 	ball.color = "magenta";
@@ -17,9 +20,13 @@ var prevX;
     ball.y = canvas.height/2;
     ball.vx = 0;
 	ball.vy = 5;
+	ball.force = 5;
 	//<----------------Paddle---------------->
 	player1 = new GameObject();
 	player1.color = "cyan";
+	player1.y = 550;
+	player1.width = 250;
+	player1.height = 40;
 
 	timer = setInterval(animate, interval);
 
@@ -30,24 +37,30 @@ function animate()
 	if(a)
 	{
 		console.log("Moving Left");
-		player1.x += -5;
+		player1.vx += player1.ax * -player1.force;
 	}
 	if(d)
 	{
 		console.log("Moving Right");
-		player1.x += 5;
+		player1.vx += player1.ax * player1.force;
 	}
-	
-//<------------------Paddle Top & Bottom Boundaries------------------>
+	player1.vx *= friction;
+	player1.x += player1.vx;
 
-	if(player1.y <= 0 + 50)
+//<----------------Grav & Friction---------------->
+ball.vy += gravity;
+ball.vy *= friction;
+	
+//<------------------Paddle Boundaries------------------>
+
+	if(player1.x <= 120)
 	{
-		player1.y = 50;
+		player1.x = 120;
 	}
 	
-	if(player1.y >= 800 - 50)
+	if(player1.x >= 875)
 	{
-		player1.y = 750;
+		player1.x = 875;
 	}
 
 //<----------------Ball Boundaries---------------->
@@ -61,7 +74,7 @@ function animate()
 	}
 
 	//left wall
-	if(ball.x <= 0 - 40)
+	if(ball.x <= 35)
 	{
         ball.vx = -ball.vx;
 	}
@@ -76,6 +89,8 @@ function animate()
 	if(ball.y > canvas.height - ball.height/2)
 	{
 		ball.vy = -ball.vy;
+		ball.y = 560;
+		score = 0;
 	}
 
 	//<----------------------------------------------------------------------->
@@ -83,21 +98,41 @@ function animate()
 	//Player 1
 	if(ball.hitTestObject(player1))
 	{
-		if(ball.x < player1.x + 41)
+		score++;
+		ball.vy = -50;
+
+		//Left Outer Sixth---------->
+		if(ball.x < player1.x - 82)
 		{
-		  ball.vx = -5;
-		  ball.vy = -5;
+			ball.vy = -35;
+			ball.vx = (-ball.force*5);
 		}
 
-		if(ball.x > player1.x + 41)
+		//Left Inner Sixth---------->
+		if(ball.x > player1.x - 82 && ball.x < player1.x - 41)
 		{
-		  ball.vx = 5;
-		  ball.vy = -5;
+			ball.vy = -35;
+			ball.vx = (-ball.force);
 		}
 
-		if(ball.x > player1.x - 41 && ball.x < player1.x + 41)
+		//Inner Sixths
+		if(ball.x > player1.x + 41 && ball.x < player1.x - 41)
 		{
-		  ball.vy = 5;
+			ball.vy = -35;
+		}
+
+		//Right Inner Sixth---------->
+		if(ball.x < player1.x + 82 && ball.x > player1.x + 41)
+		{
+			ball.vy = -35;
+			ball.vx = (ball.force);
+		}
+
+		//Right Outer Sixth---------->
+		if(ball.x > player1.x + 82)
+		{
+			ball.vy = -35;
+			ball.vx = (ball.force*5);
 		}
 	}
 
@@ -110,4 +145,8 @@ function animate()
 
 	ball.drawCircle();
 	player1.drawRect();
+
+	context.font = "16px Arial";
+	context.fillStyle = "dark gray";
+	context.fillText(("Score : " + score), 80, 25);
 }
