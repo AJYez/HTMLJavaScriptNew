@@ -80,10 +80,10 @@ function GameObject(obj)
 	
 	this.hitTestObject = function(obj)
 	{
-		if(this.left().x <= obj.right().x && 
-		   this.right().x >= obj.left().x &&
-		   this.top().y <= obj.bottom().y &&
-		   this.bottom().y >= obj.top().y)
+		if(this.left().x <= obj.right().x &&
+			this.right().x >= obj.left().x &&
+			this.top().y <= obj.bottom().y &&
+			this.bottom().y >= obj.top().y)
 		{
 			return true
 		}
