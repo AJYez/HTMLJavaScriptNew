@@ -64,7 +64,7 @@ function GameObject(obj)
 	{
 		return {x:this.x - this.width/2 , y:this.y + this.height/2}
 	}
-	this.right = function() 
+	this.right = function()
 	{
 		return {x:this.x + this.width/2 , y:this.y + this.height/2}
 	}
