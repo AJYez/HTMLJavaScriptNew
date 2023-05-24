@@ -100,6 +100,11 @@ function animate()
 		player.canJump = true;
 		player.y--;
 		player.vy = 0;
+
+		if(s)
+		{
+			player.y = 500;
+		}
 	}
 	
 	
