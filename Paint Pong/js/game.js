@@ -12,10 +12,6 @@ var prevX;
 	var ball = new GameObject();
 	var p1Wins = 0;
 	var p2Wins = 0;
-
-	var seconds = 5;
-	var fps = 60;
-	var frames = fps;
 	
 	//------Declare the Player's speed on the x and y axis------
 	ball.vx = -5;
@@ -78,16 +74,38 @@ function animate()
 
 //<----------------Ball Colors---------------->
 
-function randomColor(ballColors)
+/*function randomColor(ballColors)
 {
 	return ballColors[Math.floor(Math.random()*ballColors.length)];
 }
 
 var ballColors = ['red', 'blue', 'yellow', 'green'];
 
-setTimeout(randomColor(ballColors), 5000);
+setTimeout(() => {ball.color = randomColor(ballColors);}, 3000);*/
 
-ball.color = randomColor(ballColors);
+var numColor = Math.floor(Math.random() * 4) + 1;
+
+function colorChange()
+{
+	if(numColor = 1)
+	{
+		ball.color = "red";
+	}
+	else if(numColor = 2)
+	{
+		ball.color = "blue";
+	}
+	else if(numColor = 3)
+	{
+		ball.color = "yellow";
+	}
+	else if(numColor = 4)
+	{
+		ball.color = "green";
+	}
+}
+
+setInterval(colorChange, 3000);
 
 //<----------------Ball Boundaries---------------->
 
@@ -164,5 +182,6 @@ ball.color = randomColor(ballColors);
 	context.fillStyle = "black";
 	context.fillText(("Score : " + p1Wins), 50, 70);
 
-	console.log(randomColor(ballColors));
+	console.log(ball.color);
+	console.log(numColor);
 }
