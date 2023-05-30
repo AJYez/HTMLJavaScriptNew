@@ -133,7 +133,10 @@ function animate()
 	//Player 1
 	if(ball.hitTestObject(player1))
 	{
-		p1Wins = p1Wins + 1;
+		if(ball.y < player1.y - 16 || ball.y > player1.y + 16 || ball.y > player1.y - 16 && ball.y < player1.y +16)
+		{
+			p1Wins = p1Wins + 1;
+		}
 
 		if(ball.y < player1.y - 16)
 		{
