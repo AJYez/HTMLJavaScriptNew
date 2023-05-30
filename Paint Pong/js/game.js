@@ -24,6 +24,32 @@ var prevX;
 
 	timer = setInterval(animate, interval);
 
+	//<----------------Ball Colors---------------->
+
+function colorChange()
+{
+	var numColor = Math.floor(Math.random() * 4) + 1;
+
+	if(numColor == 1)
+	{
+		ball.color = "red";
+	}
+	if(numColor == 2)
+	{
+		ball.color = "blue";
+	}
+	if(numColor == 3)
+	{
+		ball.color = "yellow";
+	}
+	if(numColor == 4)
+	{
+		ball.color = "green";
+	}
+}
+
+setInterval(colorChange, 2000);
+
 function animate()
 {
 	context.clearRect(0,0,canvas.width, canvas.height);
@@ -72,41 +98,6 @@ function animate()
 		player1.y = 750;
 	}
 
-//<----------------Ball Colors---------------->
-
-/*function randomColor(ballColors)
-{
-	return ballColors[Math.floor(Math.random()*ballColors.length)];
-}
-
-var ballColors = ['red', 'blue', 'yellow', 'green'];
-
-setTimeout(() => {ball.color = randomColor(ballColors);}, 3000);*/
-
-var numColor = Math.floor(Math.random() * 4) + 1;
-
-function colorChange()
-{
-	if(numColor = 1)
-	{
-		ball.color = "red";
-	}
-	else if(numColor = 2)
-	{
-		ball.color = "blue";
-	}
-	else if(numColor = 3)
-	{
-		ball.color = "yellow";
-	}
-	else if(numColor = 4)
-	{
-		ball.color = "green";
-	}
-}
-
-setInterval(colorChange, 3000);
-
 //<----------------Ball Boundaries---------------->
 
 	ball.move();
@@ -142,24 +133,32 @@ setInterval(colorChange, 3000);
 	//Player 1
 	if(ball.hitTestObject(player1))
 	{
+		p1Wins = p1Wins + 1;
+
 		if(ball.y < player1.y - 16)
 		{
-		  ball.vx = 5;
-		  ball.vy = -5;
-		  p1Wins = p1Wins + 1;
+			if(ball.color == player1.color)
+			{
+				ball.vx = 5;
+				ball.vy = -5;
+			}
 		}
 
 		if(ball.y > player1.y + 16)
 		{
-		  ball.vx = 5;
-		  ball.vy = 5;
-		  p1Wins = p1Wins + 1;
+			if(ball.color == player1.color)
+			{
+				ball.vx = 5;
+				ball.vy = 5;
+			}
 		}
 
 		if(ball.y > player1.y - 16 && ball.y < player1.y +16)
 		{
-		  ball.vx = 5;
-		  p1Wins = p1Wins + 1;
+			if(ball.color == player1.color)
+			{
+				ball.vx = 5;
+			}
 		}
 	}
 
@@ -181,6 +180,16 @@ setInterval(colorChange, 3000);
 	context.font = "25px Arial";
 	context.fillStyle = "black";
 	context.fillText(("Score : " + p1Wins), 50, 70);
+
+	context.font = "25px Arial";
+	context.fillStyle = "black";
+	context.textAlign = "center";
+	context.fillText("Match the color of your paddle to the color of the ball!", canvas.width/2, 40);
+
+	context.font = "15px Arial";
+	context.fillStyle = "black";
+	context.textAlign = "center";
+	context.fillText("Left Arrow = Yellow  |  Up Arrow = Red  |  Down Arrow = Blue  |  Right Arrow = Green", canvas.width/2, 70);
 
 	console.log(ball.color);
 	console.log(numColor);
