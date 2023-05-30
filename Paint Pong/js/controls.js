@@ -7,6 +7,7 @@ var ArrowUp = false;
 var ArrowDown = false;
 var ArrowLeft = false;
 var ArrowRight = false;
+var space = false;
 
 //Add Event Listeners
 document.addEventListener("keydown", press);
@@ -50,6 +51,10 @@ function press(e)
 	{
 		ArrowRight = true;
 	}
+	if(e.keyCode == 32)
+	{
+		space = true;
+	}
 }
 
 function release(e)
@@ -88,5 +93,9 @@ function release(e)
 	if(e.keyCode == 39)
 	{
 		ArrowRight = false;
+	}
+	if(e.keyCode == 32)
+	{
+		space = false;
 	}
 }

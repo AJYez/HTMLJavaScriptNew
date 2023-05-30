@@ -8,15 +8,13 @@ var prevX;
 
 	canvas = document.getElementById("canvas");
 	context = canvas.getContext("2d");
-	var img=document.getElementById("ric");
 	var ball = new GameObject();
 	var p1Wins = 0;
-	var p2Wins = 0;
 	
-	//------Declare the Player's speed on the x and y axis------
+	//<----------------Ball---------------->
 	ball.vx = -5;
 	ball.vy = 0;
-	//----------------------------------------------------
+	//<----------------Player/Paddle---------------->
 	player1 = new GameObject();
 	player1.color = "red";
 	player1.x = 25;
@@ -47,13 +45,34 @@ function colorChange()
 		ball.color = "green";
 	}
 }
-
 setInterval(colorChange, 2000);
+
+//<----------------Power Up---------------->
+var powerUp = false;
+
+if(score = 10||15||20||25||30||35||40||45||50||55||60||65||70)
+{
+	powerUp == true;
+}
+
+function activatePowerUp()
+{
+	if(space)
+	{
+		if(powerUp == true)
+		{
+			player1.color = "white";
+		}
+	}
+}
+
+//<-------------------------------------------------->
 
 function animate()
 {
 	context.clearRect(0,0,canvas.width, canvas.height);
 
+	//<----------------Player Movement---------------->
 	if(w)
 	{
 		console.log("Moving Up");
@@ -65,6 +84,7 @@ function animate()
 		player1.y += 5;
 	}
 
+	//<----------------Player Colors---------------->
 	if(ArrowUp)
 	{
 		console.log("Red");
@@ -85,8 +105,8 @@ function animate()
 		console.log("Green");
 		player1.color = "green";
 	}
-	
-//<------------------Paddle Top & Bottom Boundaries------------------>
+
+//<------------------Player Top & Bottom Boundaries------------------>
 
 	if(player1.y <= 0 + 50)
 	{
@@ -128,7 +148,7 @@ function animate()
 		ball.vy = -ball.vy;
 	}
 
-	//<----------------------------------------------------------------------->
+	//<----------------Collision---------------->
 
 	//Player 1
 	if(ball.hitTestObject(player1))
@@ -140,7 +160,7 @@ function animate()
 
 		if(ball.y < player1.y - 16)
 		{
-			if(ball.color == player1.color)
+			if(ball.color == player1.color || player1.color == "white")
 			{
 				ball.vx = 5;
 				ball.vy = -5;
@@ -149,7 +169,7 @@ function animate()
 
 		if(ball.y > player1.y + 16)
 		{
-			if(ball.color == player1.color)
+			if(ball.color == player1.color || player1.color == "white")
 			{
 				ball.vx = 5;
 				ball.vy = 5;
@@ -158,31 +178,21 @@ function animate()
 
 		if(ball.y > player1.y - 16 && ball.y < player1.y +16)
 		{
-			if(ball.color == player1.color)
+			if(ball.color == player1.color || player1.color == "white")
 			{
 				ball.vx = 5;
 			}
 		}
 	}
-
-	//Update the Screen
 	context.save();
-	/*context.strokeStyle = "dark gray";
-	context.beginPath();
-	context.moveTo(canvas.width/2, 0);
-	context.lineTo(canvas.width/2, 800);
-	context.closePath();
-	context.lineWidth = "5px";
-	context.stroke();*/
 	context.restore();
 
-	//ball.drawCircle();
 	player1.drawRect();
 	ball.drawCircle();
 
 	context.font = "25px Arial";
 	context.fillStyle = "black";
-	context.fillText(("Score : " + p1Wins), 50, 70);
+	context.fillText(("Score : " + p1Wins), 60, 70);
 
 	context.font = "25px Arial";
 	context.fillStyle = "black";
@@ -193,7 +203,4 @@ function animate()
 	context.fillStyle = "black";
 	context.textAlign = "center";
 	context.fillText("Left Arrow = Yellow  |  Up Arrow = Red  |  Down Arrow = Blue  |  Right Arrow = Green", canvas.width/2, 70);
-
-	console.log(ball.color);
-	console.log(numColor);
 }

@@ -41,8 +41,11 @@ function GameObject(x,y,w,h,color)
 	{
 		context.save();
 		context.fillStyle = this.color;
+		context.strokeStyle = "black";
+		context.lineWidth = "2";
 		context.translate(this.x, this.y);
 		context.fillRect((-this.width/2), (-this.height/2), this.width, this.height);
+		context.strokeRect((-this.width/2), (-this.height/2), this.width, this.height);
 		context.restore();	
 	}
 	
