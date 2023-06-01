@@ -22,6 +22,16 @@ var prevX;
 
 	timer = setInterval(animate, interval);
 
+	//<----------------Power Up---------------->
+	var powerUp = new GameObject();
+	var powerUpPosY = Math.floor(Math.random() * 785) + 1;
+
+	powerUp.color = "gray";
+	powerUp.x = 25;
+	powerUp.y = powerUpPosY;
+	powerUp.width = 15;
+	powerUp.height = powerUp.width;
+
 	//<----------------Ball Colors---------------->
 
 function colorChange()
@@ -47,30 +57,14 @@ function colorChange()
 }
 setInterval(colorChange, 2000);
 
-//<----------------Power Up---------------->
-var powerUp = false;
-
-if(score = 10||15||20||25||30||35||40||45||50||55||60||65||70)
-{
-	powerUp == true;
-}
-
-function activatePowerUp()
-{
-	if(space)
-	{
-		if(powerUp == true)
-		{
-			player1.color = "white";
-		}
-	}
-}
-
 //<-------------------------------------------------->
 
 function animate()
 {
 	context.clearRect(0,0,canvas.width, canvas.height);
+
+	//<----------------Power Up---------------->
+	
 
 	//<----------------Player Movement---------------->
 	if(w)
@@ -184,9 +178,13 @@ function animate()
 			}
 		}
 	}
+
+	//<-------------------------------------------------->
+	
 	context.save();
 	context.restore();
 
+	powerUp.drawCircle();
 	player1.drawRect();
 	ball.drawCircle();
 
