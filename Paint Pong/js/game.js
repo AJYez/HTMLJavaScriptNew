@@ -1,5 +1,4 @@
 // JavaScript Document
-
 var canvas;
 var context;
 var timer;
@@ -22,15 +21,13 @@ var prevX;
 
 	timer = setInterval(animate, interval);
 
-	//<----------------Power Up---------------->
-	var powerUp = new GameObject();
-	var powerUpPosY = Math.floor(Math.random() * 785) + 1;
-
-	powerUp.color = "gray";
-	powerUp.x = 25;
-	powerUp.y = powerUpPosY;
-	powerUp.width = 15;
-	powerUp.height = powerUp.width;
+	//<----------------Dark Mode---------------->
+	var background = new GameObject();
+	background.x = 0;
+	background.y = 0;
+	background.width = 2100;
+	background.height = 1600;
+	background.color = "white";
 
 	//<----------------Ball Colors---------------->
 
@@ -63,8 +60,11 @@ function animate()
 {
 	context.clearRect(0,0,canvas.width, canvas.height);
 
-	//<----------------Power Up---------------->
-	
+	//<----------------Dark Mode---------------->
+	if(space)
+	{
+		background.color = "black";
+	}
 
 	//<----------------Player Movement---------------->
 	if(w)
@@ -154,7 +154,7 @@ function animate()
 
 		if(ball.y < player1.y - 16)
 		{
-			if(ball.color == player1.color || player1.color == "white")
+			if(ball.color == player1.color)
 			{
 				ball.vx = 5;
 				ball.vy = -5;
@@ -163,7 +163,7 @@ function animate()
 
 		if(ball.y > player1.y + 16)
 		{
-			if(ball.color == player1.color || player1.color == "white")
+			if(ball.color == player1.color)
 			{
 				ball.vx = 5;
 				ball.vy = 5;
@@ -172,7 +172,7 @@ function animate()
 
 		if(ball.y > player1.y - 16 && ball.y < player1.y +16)
 		{
-			if(ball.color == player1.color || player1.color == "white")
+			if(ball.color == player1.color)
 			{
 				ball.vx = 5;
 			}
@@ -184,7 +184,7 @@ function animate()
 	context.save();
 	context.restore();
 
-	powerUp.drawCircle();
+	background.drawRect();
 	player1.drawRect();
 	ball.drawCircle();
 
@@ -201,4 +201,13 @@ function animate()
 	context.fillStyle = "black";
 	context.textAlign = "center";
 	context.fillText("Left Arrow = Yellow  |  Up Arrow = Red  |  Down Arrow = Blue  |  Right Arrow = Green", canvas.width/2, 70);
+
+	context.font = "15px Arial";
+	context.fillStyle = "black";
+	context.textAlign = "center";
+	context.fillText("For dark mode, press SPACE", canvas.width/2, 95);
+
+	context.font = "25px Arial";
+	context.fillStyle = "white";
+	context.fillText(("Score : " + p1Wins), 60, 750);
 }
